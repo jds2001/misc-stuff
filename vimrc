@@ -69,6 +69,9 @@ autocmd FileType html,css set noexpandtab tabstop=2
 " (despite the mappings later):
 autocmd FileType make set noexpandtab shiftwidth=8
 
+" In YAML files, set the tabstop to two spaces
+autocmd FileType yaml set autoindent shiftwidth=2 tabstop=2
+
 " * Keystrokes -- Moving Around
 
 " have the h and l cursor keys wrap between lines (like <Space> and <BkSpc> do
