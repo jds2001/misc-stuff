@@ -1,0 +1,7 @@
+---
+- name: deploy files
+  hosts: localhost
+  become: false
+  tasks:
+    - name: deploy the vimrc
+      copy: src=../vimrc dest={{ansible_user_dir}}/.vimrc
