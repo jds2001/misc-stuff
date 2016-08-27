@@ -1,7 +1,7 @@
 ---
-- name: deploy files
-  hosts: localhost
-  become: false
+- name: install packages
+  hosts: target_hosts
+  become: true
   tasks:
     - name: install python2-dnf
       yum: name=python2-dnf state=present
@@ -9,5 +9,9 @@
     - name: install libselinux-python
       dnf: name=libselinux-python state=present
       when: ansible_distribution == "Fedora"
+- name: deploy files
+  hosts: target_hosts
+  become: false
+  tasks:
     - name: deploy the vimrc
       copy: src=../vimrc dest={{ansible_user_dir}}/.vimrc
