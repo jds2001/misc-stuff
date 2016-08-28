@@ -16,6 +16,18 @@
           - fedora-packager
           - git-core-doc
       when: ansible_distribution == "Fedora"
+    - block:
+      - name: install epel repository
+        yum: name=https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm state=present
+      - name: install packages
+        yum: name={{item}} state=present
+        with_items:
+          - sl
+          - cowsay
+          - fedora-packager
+          - git
+          - vim-enhanced
+      when: ansible_distribution == "CentOS"
 
 - name: deploy files
   hosts: target_hosts
