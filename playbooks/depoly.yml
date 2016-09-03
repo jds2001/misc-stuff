@@ -4,8 +4,6 @@
   become: true
   tasks:
     - block:
-      - name: install python2-dnf
-        yum: name=python2-dnf state=present
       - name: install packages
         dnf: name={{item}} state=present
         with_items:

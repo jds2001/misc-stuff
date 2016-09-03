@@ -1,0 +1,8 @@
+---
+- name: bootstrap a Fedora box
+  hosts: target_hosts
+  remote_user: root
+  gather_facts: False
+  tasks:
+    - name: install python2
+      raw: dnf -y install python2 python2-dnf
