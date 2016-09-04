@@ -1,0 +1,13 @@
+Host *
+ServerAliveInterval 300
+
+Host palladium.jds2001.org
+ForwardAgent yes
+
+Host bastion.fedoraproject.org
+IdentityFile /home/jstanley/.ssh/id_rsa.fedora
+ForwardAgent no
+
+Host puppet* app* proxy* bapp* noc* publictest* hosted* cvs* log* value* collab* x86* ppc* lockbox* virthost* xen* compose* fed* mailman* fas* batcave* anitya* download* people*
+IdentityFile /home/jstanley/.ssh/id_rsa.fedora
+ProxyCommand ssh jstanley@bastion.fedoraproject.org /usr/bin/nc %h 22
