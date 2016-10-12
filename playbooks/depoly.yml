@@ -29,6 +29,8 @@
           - git
           - vim-enhanced
           - ntp
+          - screen
+          - irssi
       - name: remove chrony
         yum: name=chrony state=absent
       - name: start ntp service
