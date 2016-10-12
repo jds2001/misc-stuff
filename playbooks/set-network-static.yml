@@ -1,0 +1,23 @@
+---
+- name: set static networking
+  hosts: target_hosts
+  become: yes
+  tasks:
+    - name: make sure prerequisites are met
+      fail: msg='must pass desired_hostname as extra_var'
+      when: desired_hostname is undefined
+    - name: get the address
+      debug: msg={{ansible_default_ipv4.address}}
+    - name: disable NM
+      service: name=NetworkManager state=stopped enabled=no
+    - name: enable static networking service
+      service: name=network state=started enabled=yes
+    - name: put config in place
+      template: src=ifcfg.j2 dest=/etc/sysconfig/network-scripts/ifcfg-{{ansible_default_ipv4.interface}} mode=0755 owner=root group=root
+      notify: restart network
+    - name: put /etc/sysconfig/network in place
+      template: src=network.j2 dest=/etc/sysconfig/network mode=0755 owner=root group=root
+      notify: restart network
+  handlers:
+    - name: restart network
+      service: name=network state=restarted
