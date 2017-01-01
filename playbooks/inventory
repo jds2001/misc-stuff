@@ -1,3 +1,0 @@
-[target_hosts]
-localhost ansible_connection=local
-#Adhcp-108.rmrf.net
