@@ -5,32 +5,39 @@
   tasks:
     - block:
       - name: install packages
-        dnf: name={{item}} state=present
-        with_items:
-          - sl
-          - libselinux-python
-          - cowsay
-          - vim-enhanced
-          - fedora-packager
-          - git-core-doc
-          - chrony
+        dnf:
+          name:
+            - sl
+            - libselinux-python
+            - cowsay
+            - vim-enhanced
+            - fedora-packager
+            - git-core-doc
+            - chrony
+          state: present
       - name: chrony service
         service: name=chronyd state=started enabled=yes
       when: ansible_distribution == "Fedora"
     - block:
-      - name: install epel repository
-        yum: name=https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm state=present
+      - name: install relevant repositories
+        yum:
+          name:
+            - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+            - centos-release-scl
+          state: present
       - name: install packages
-        yum: name={{item}} state=present
-        with_items:
-          - sl
-          - cowsay
-          - fedora-packager
-          - git
-          - vim-enhanced
-          - ntp
-          - screen
-          - irssi
+        yum:
+          name:
+            - sl
+            - cowsay
+            - fedora-packager
+            - git
+            - vim-enhanced
+            - ntp
+            - screen
+            - irssi
+            - rh-python36
+          state: present
       - name: remove chrony
         yum: name=chrony state=absent
       - name: start ntp service
