@@ -37,6 +37,7 @@
             - screen
             - irssi
             - rh-python36
+            - bash-completion
           state: present
       - name: remove chrony
         yum: name=chrony state=absent
