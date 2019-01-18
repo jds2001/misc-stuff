@@ -34,9 +34,6 @@ set showcmd
 " have the mouse enabled all the time:
 "set mouse=a
 
-" don't have files trying to override this .vimrc:
-set nomodeline
-
 " * Text Formatting -- Specific File Formats
 
 " enable filetype detection:
