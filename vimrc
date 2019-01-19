@@ -69,6 +69,9 @@ autocmd FileType make set noexpandtab shiftwidth=8
 " In YAML files, set the tabstop to two spaces
 autocmd FileType yaml set autoindent shiftwidth=2 tabstop=2
 
+" In Terraform files, set the tabstop to three spaces and smartindent it
+autocmd FileType tf set autoindent shiftwidth=3 tabstop=3
+
 " * Keystrokes -- Moving Around
 
 " have the h and l cursor keys wrap between lines (like <Space> and <BkSpc> do
