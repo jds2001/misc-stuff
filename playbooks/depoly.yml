@@ -43,6 +43,10 @@
         yum: name=chrony state=absent
       - name: start ntp service
         service: name=ntpd state=started enabled=yes
+      - name: update all packages
+        yum:
+          name: "*"
+          state: latest
       when: ansible_distribution == "CentOS"
 
 - name: deploy files
