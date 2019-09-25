@@ -47,6 +47,23 @@
         yum:
           name: "*"
           state: latest
+      - block:
+        - name: install hyperv daemons
+          yum:
+            name:
+              - hyperv-tools
+              - hyperv-daemons
+            state: present
+        - name: enable hyperv services
+          service:
+            name: "{{item}}"
+            state: started
+            enabled: true
+          with_items:
+            - hypervkvpd
+            - hypervvssd
+            - hypervfcopyd
+        when: ansible_virtualization_type == "VirtualPC"
       when: ansible_distribution == "CentOS"
 
 - name: deploy files
