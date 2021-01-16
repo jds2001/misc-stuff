@@ -18,6 +18,7 @@
       - name: chrony service
         service: name=chronyd state=started enabled=yes
       when: ansible_distribution == "Fedora"
+
     - block:
       - name: install relevant repositories
         yum:
@@ -65,7 +66,47 @@
             - hypervfcopyd
         when: ansible_virtualization_type == "VirtualPC"
       when: ansible_distribution == "CentOS"
-
+    - block:
+      - name: enable relevant repos
+        rhsm_repository:
+          name: rhel-server-rhscl-7-rpms
+          state: enabled
+      - name: install relevant repositories
+        yum:
+          name:
+            - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+          state: present
+      - name: install packages
+        yum:
+          name:
+            - git
+            - vim-enhanced
+            - screen
+            - irssi
+            - rh-python36
+            - bash-completion
+          state: present
+      - name: update all packages
+        yum:
+          name: "*"
+          state: latest
+      - block:
+        - name: install hyperv daemons
+          yum:
+            name:
+              - hyperv-daemons
+            state: present
+        - name: enable hyperv services
+          service:
+            name: "{{item}}"
+            state: started
+            enabled: true
+          with_items:
+            - hypervkvpd
+            - hypervvssd
+            - hypervfcopyd
+        when: ansible_virtualization_type == "VirtualPC"
+      when: ansible_distribution == "RedHat"
 - name: deploy files
   hosts: target_hosts
   become: false
