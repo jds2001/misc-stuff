@@ -117,4 +117,4 @@
     - name: ensure the ssh directory exists
       file: dest={{ansible_user_dir}}/.ssh state=directory mode=0700
     - name: ssh config
-      copy: src=../ssh-config dest={{ansible_user_dir}}/.ssh/config
+      copy: src=../ssh-config dest={{ansible_user_dir}}/.ssh/config mode=0600
